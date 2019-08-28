@@ -2,9 +2,9 @@ let AWS = require('aws-sdk');
 const sns = new AWS.SNS();
 
 exports.handler = function (event, context, callback) {
-    let receiver = event['receiver'];
-    let sender = event['sender'];
-    let message = event['message'];
+    let receiver = event['queryStringParameters']['receiver'];
+    let sender = event['queryStringParameters']['sender'];
+    let message = event['queryStringParameters']['message'];
     let isPromotional = true;
     console.log("Sending message", message, "to receiver", receiver);
     sns.publish({
@@ -23,7 +23,11 @@ exports.handler = function (event, context, callback) {
     }).promise()
         .then(data => {
             console.log("Sent message to", receiver);
-            callback(null, data);
+            callback(null, {
+                "isBase64Encoded": false,
+                "statusCode": 200,
+                "body": JSON.stringify(data)
+            });
         })
         .catch(err => {
             console.log("Sending failed", err);
