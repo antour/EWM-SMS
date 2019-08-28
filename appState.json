@@ -1,0 +1,77 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "c99c2188-a24f-4ada-85ee-2542423a9d32": {
+        "id": "c99c2188-a24f-4ada-85ee-2542423a9d32",
+        "parent": null,
+        "name": "EWM-SMS",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "8becb9f7-20d7-44b1-a8e7-722de4cdf2de"
+        ],
+        "isRemovable": false,
+        "filePath": "EWM-SMS"
+      },
+      "8becb9f7-20d7-44b1-a8e7-722de4cdf2de": {
+        "id": "8becb9f7-20d7-44b1-a8e7-722de4cdf2de",
+        "parent": "c99c2188-a24f-4ada-85ee-2542423a9d32",
+        "name": "lambda.js",
+        "type": "JS_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "EWM-SMS/lambda.js",
+        "code": "exports.handler = function(event, context, callback) {\n    \n    callback(null, {\"message\": \"Successfully executed\"});\n}",
+        "config": {
+          "runtime": "nodejs8.10",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": []
+      }
+    },
+    "deletedFiles": [],
+    "rootNode": "c99c2188-a24f-4ada-85ee-2542423a9d32",
+    "openFiles": [
+      "8becb9f7-20d7-44b1-a8e7-722de4cdf2de"
+    ],
+    "currentFileId": "8becb9f7-20d7-44b1-a8e7-722de4cdf2de",
+    "resources": {},
+    "customTemplate": {
+      "dialect": null,
+      "definitions": {}
+    },
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {}
+    }
+  },
+  "PROJECT_META": {
+    "projectName": "EWM-SMS",
+    "projectDescription": "EWM SMS Alert",
+    "projectVersion": "1.0.0",
+    "projectRegion": "ap-northeast-1",
+    "platform": "AWS",
+    "platformRegions": {},
+    "lastSave": 1566971022182
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "EWM-SMS",
+      "url": "https://github.com/antour/EWM-SMS"
+    }
+  }
+}
