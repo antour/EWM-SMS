@@ -2,14 +2,11 @@ let AWS = require('aws-sdk');
 const sns = new AWS.SNS();
 
 exports.handler = function (event, context, callback) {
-    let recipient_addr = event['queryStringParameters']['recipient_addr'];
-    let account = event['queryStringParameters']['account'];
-    let password = event['queryStringParameters']['password'];
-    let sender_addr = event['queryStringParameters']['sender_addr'];
-    let sender_name = event['queryStringParameters']['sender_name'];
+    let receiver = event['queryStringParameters']['receiver'];
+    let sender = event['queryStringParameters']['sender'];
     let message = event['queryStringParameters']['message'];
     let isPromotional = true;
-    console.log("Sending message", message, "to receiver", recipient_addr);
+    console.log("Sending message", message, "to receiver", receiver);
     sns.publish({
         Message: message,
         MessageAttributes: {
@@ -19,13 +16,13 @@ exports.handler = function (event, context, callback) {
             },
             'AWS.SNS.SMS.SenderID': {
                 'DataType': 'String',
-                'StringValue': sender_name
+                'StringValue': sender
             }
         },
-        PhoneNumber: recipient_addr
+        PhoneNumber: receiver
     }).promise()
         .then(data => {
-            console.log("Sent message to", recipient_addr);
+            console.log("Sent message to", receiver);
             callback(null, {
                 "isBase64Encoded": false,
                 "statusCode": 200,
