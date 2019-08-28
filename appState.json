@@ -22,7 +22,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "EWM-SMS/lambda.js",
-        "code": "let AWS = require('aws-sdk');\nconst sns = new AWS.SNS();\n\nexports.handler = function (event, context, callback) {\n    let receiver = event['receiver'];\n    let sender = event['sender'];\n    let message = event['message'];\n    let isPromotional = true;\n    console.log(\"Sending message\", message, \"to receiver\", receiver);\n    sns.publish({\n        Message: message,\n        MessageAttributes: {\n            'AWS.SNS.SMS.SMSType': {\n                'DataType': 'String',\n                'StringValue': 'Promotional'\n            },\n            'AWS.SNS.SMS.SenderID': {\n                'DataType': 'String',\n                'StringValue': sender\n            }\n        },\n        PhoneNumber: receiver\n    }).promise()\n        .then(data => {\n            console.log(\"Sent message to\", receiver);\n\t\t\tcallback(null, data);\n        })\n        .catch(err => {\n            console.log(\"Sending failed\", err);\n\t\t\tcallback(err);\n            // error handling goes here\n        });\n\n   }",
+        "code": "let AWS = require('aws-sdk');\nconst sns = new AWS.SNS();\n\nexports.handler = function (event, context, callback) {\n    let receiver = event['receiver'];\n    let sender = event['sender'];\n    let message = event['message'];\n    let isPromotional = true;\n    console.log(\"Sending message\", message, \"to receiver\", receiver);\n    sns.publish({\n        Message: message,\n        MessageAttributes: {\n            'AWS.SNS.SMS.SMSType': {\n                'DataType': 'String',\n                'StringValue': 'Promotional'\n            },\n            'AWS.SNS.SMS.SenderID': {\n                'DataType': 'String',\n                'StringValue': sender\n            }\n        },\n        PhoneNumber: receiver\n    }).promise()\n        .then(data => {\n            console.log(\"Sent message to\", receiver);\n            callback(null, data);\n        })\n        .catch(err => {\n            console.log(\"Sending failed\", err);\n            callback(err);\n            // error handling goes here\n        });\n\n}",
         "config": {
           "runtime": "nodejs8.10",
           "handler": "handler",
@@ -32,7 +32,7 @@
         },
         "triggers": [
           {
-            "resourceName": "apigapNortheast1SMSEWMsendSMSpost",
+            "resourceName": "apigapNortheast1SMSEWMsendSMSget",
             "config": {}
           }
         ]
@@ -73,6 +73,25 @@
             "@{receiver}"
           ]
         }
+      },
+      "apigapNortheast1SMSEWMsendSMSget": {
+        "name": "apigapNortheast1SMSEWMsendSMSget",
+        "type": "API_GATEWAY",
+        "config": {
+          "selectedRegion": "ap-northeast-1",
+          "apiMode": 0,
+          "apiName": "SMS-EWM",
+          "endpointType": "EDGE",
+          "resourceMode": 0,
+          "resourceName": "sendSMS",
+          "resourcePath": "/sendSMS",
+          "restMethod": "GET",
+          "proxyIntegration": false,
+          "enableCORS": false,
+          "stageMode": 0,
+          "stageName": "Prod",
+          "mode": 0
+        }
       }
     },
     "customTemplate": {
@@ -108,7 +127,7 @@
     "projectRegion": "ap-northeast-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1566973336750
+    "lastSave": 1566976714867
   },
   "VCS_STATE": {
     "provider": "GitHub",

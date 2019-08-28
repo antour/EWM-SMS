@@ -23,12 +23,12 @@ exports.handler = function (event, context, callback) {
     }).promise()
         .then(data => {
             console.log("Sent message to", receiver);
-			callback(null, data);
+            callback(null, data);
         })
         .catch(err => {
             console.log("Sending failed", err);
-			callback(err);
+            callback(err);
             // error handling goes here
         });
 
-   }
+}
