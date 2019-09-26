@@ -3,6 +3,9 @@ const sns = new AWS.SNS();
 
 exports.handler = function (event, context, callback) {
     let recipient_addr = event['queryStringParameters']['recipient_addr'];
+    let group = event['queryStringParameters']['group'];
+    let mobiles = event['queryStringParameters']['mobiles'];
+    let sms = event['queryStringParameters']['sms'];
     let account = event['queryStringParameters']['account'];
     let password = event['queryStringParameters']['password'];
     let sender_addr = event['queryStringParameters']['sender_addr'];
